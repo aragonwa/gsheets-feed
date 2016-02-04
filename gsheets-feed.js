@@ -32,7 +32,7 @@
           title: item.gsx$title.$t,
           link: item.gsx$link.$t,
           text: item.gsx$text.$t
-        }
+        };
         feedItems.push(itemObj);
 
       });
@@ -42,9 +42,9 @@
           return 1;
         else if (a.date > b.date)
           return -1;
-        else 
+        else
           return 0;
-      })
+      });
 
       $.each (feedItems, function(i, item) {
         var date = item.date;
