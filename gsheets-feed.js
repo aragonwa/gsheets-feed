@@ -3,17 +3,12 @@
   $.fn.GSFeed = function( options ) {
 
     // Create some defaults, extending them with any options that were provided
-    //https://docs.google.com/spreadsheets/d/16EvF7h015u3vg0O9PyUWFIk30aYr7GIrFISUS7O75mk/edit?usp=sharing
     var settings = $.extend( {
-      //feedURL      : '//spreadsheets.google.com/feeds/list/1u3IwScvL49jYgq_9-vBkON-6EZN0XU-N3w85JLk3rIg/od6/public/values?alt=json-in-script',
-      //feedURL      : '//spreadsheets.google.com/feeds/list/16EvF7h015u3vg0O9PyUWFIk30aYr7GIrFISUS7O75mk/od6/public/values?alt=json-in-script',
       feedURL      : '',
       numItems     : 4,
       title        : 'News',
       titleIcon    : 'fa-file-text-o',
       showSummary  : true
-      //allItemsUrl  : '//www.kingcounty.gov/about/news/events',
-      //allItemsText : 'See all King County news'
     }, options);
 
     //Set global scope for instance
@@ -74,9 +69,6 @@
         output += '</div>';
         //Set content for popover
         var popoverContent = 'Summary: '+ text;
-        //var titleStr = title;
-        //var titleParts = titleStr.split(': ');
-        //var titleStrSub = titleParts[1];
         //Get Event name
         output += '<div class="media-body">';
         output +='<a href="'+link+'" id="popover'+i+'" rel="popover" data-animation="true" data-html="true" data-placement="right" data-trigger="hover" data-delay="0" data-content="'+ popoverContent +'" title="'+ title +'">' + title + '</a>';
@@ -87,7 +79,7 @@
         output+='</div></div>';
         allpops.push('#popover'+i);
       });
-      //output+= '<p><a href="'+settings.allItemsUrl+'"><em>'+settings.allItemsText+'</em></a></p>';
+
       $this.html(output);
       $(allpops).each(function (){
         $(allpops).popover();
