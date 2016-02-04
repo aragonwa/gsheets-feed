@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Feed Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-sm-12">
+        <div class="page-header">
+          <h1>Feed tools</h1>
+        </div>
+        <div id="myNews"></div>
+      </div>
+    </div>
+
+    <!-- Javascript files-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="gsheets-feed.js"></script>
+    <script>
+      $('#myNews').GSFeed({
+        feedURL: 'https://spreadsheets.google.com/feeds/list/16EvF7h015u3vg0O9PyUWFIk30aYr7GIrFISUS7O75mk/1/public/values?alt=json-in-script'
+      });
+    </script>
+  </body>
+</html>
