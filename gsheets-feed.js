@@ -39,9 +39,9 @@
       });
 
       feedItems.sort(function(a,b){
-        if (a.date < b.date)
+        if (new Date(a.date) < new Date(b.date))
           return 1;
-        else if (a.date > b.date)
+        else if (new Date(a.date) > new Date(b.date))
           return -1;
         else
           return 0;
