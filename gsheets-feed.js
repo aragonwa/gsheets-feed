@@ -6,6 +6,7 @@
     // Create some defaults, extending them with any options that were provided
     var settings = $.extend( {
       feedURL      : '',
+      cols         : {title: 'title', link: 'link', text: 'text', date: 'date'}, 
       numItems     : 4,
       title        : 'News',
       titleIcon    : 'fa-file-text-o',
@@ -29,10 +30,10 @@
         }
         var itemObj = {};
         itemObj = {
-          date: item.gsx$date.$t,
-          title: item.gsx$title.$t,
-          link: item.gsx$link.$t,
-          text: item.gsx$text.$t
+          date: item['gsx$'+settings.cols.date].$t,
+          title: item['gsx$'+settings.cols.title].$t,
+          link: item['gsx$'+settings.cols.link].$t,
+          text: item['gsx$'+settings.cols.text].$t
         };
         feedItems.push(itemObj);
 
