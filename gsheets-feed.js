@@ -5,8 +5,8 @@
 
     // Create some defaults, extending them with any options that were provided
     var settings = $.extend( {
-      feedURL      : '',
-      cols         : {title: 'title', link: 'link', text: 'text', date: 'date'}, 
+      feedURL      : '//spreadsheets.google.com/feeds/list/16EvF7h015u3vg0O9PyUWFIk30aYr7GIrFISUS7O75mk/1/public/values?alt=json-in-script',
+      cols         : {title: 'headline', link: 'link', text: 'description', date: 'date'},
       numItems     : 4,
       title        : 'News',
       titleIcon    : 'fa-file-text-o',
