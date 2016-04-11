@@ -10,6 +10,7 @@
       numItems     : 4,
       title        : 'News',
       titleIcon    : 'fa-file-text-o',
+      tag          : '',
       showSummary  : true
     }, options);
 
@@ -24,20 +25,37 @@
       var output = '<h2><span class=\"fa-stack\"><i class=\"fa fa-square fa-stack-2x\"></i><i class=\"fa ' + settings.titleIcon + ' fa-stack-1x fa-inverse\"></i> </span> '+ settings.title +'</h2>';
 
       var feedItems = [];
-      $.each (data.feed.entry, function(i, item) {
-        if(i+1 > settings.numItems) {
-          return false;
-        }
-        var itemObj = {};
-        itemObj = {
-          date: item['gsx$'+settings.cols.date].$t,
-          title: item['gsx$'+settings.cols.title].$t,
-          link: item['gsx$'+settings.cols.link].$t,
-          text: item['gsx$'+settings.cols.text].$t
-        };
-        feedItems.push(itemObj);
-
-      });
+      if(settings.tag) {
+        $.each (data.feed.entry, function(i, item) {
+          if(feedItems.length > settings.numItems-1) {
+            return false;
+          }
+          if (item['gsx$tags'].$t === settings.tag){
+            var itemObj = {};
+            itemObj = {
+              date: item['gsx$'+settings.cols.date].$t,
+              title: item['gsx$'+settings.cols.title].$t,
+              link: item['gsx$'+settings.cols.link].$t,
+              text: item['gsx$'+settings.cols.text].$t
+            };
+            feedItems.push(itemObj);
+          }
+        });
+      } else {
+        $.each (data.feed.entry, function(i, item) {
+          if(i+1 > settings.numItems) {
+            return false;
+          }
+          var itemObj = {};
+          itemObj = {
+            date: item['gsx$'+settings.cols.date].$t,
+            title: item['gsx$'+settings.cols.title].$t,
+            link: item['gsx$'+settings.cols.link].$t,
+            text: item['gsx$'+settings.cols.text].$t
+          };
+          feedItems.push(itemObj);
+        });
+      }
 
       feedItems.sort(function(a,b){
         if (new Date(a.date) < new Date(b.date))
@@ -117,7 +135,7 @@
     }
     return this.each(function() {
       $this.append('<i class="fa fa-spinner fa-spin fa-4x"></i>');
-      //var dataURL = settings.feedURL + '?count=' + settings.numItems;
+
       var dataURL = settings.feedURL;
       $.ajax({
         url: dataURL,
