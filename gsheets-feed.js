@@ -5,7 +5,7 @@
 
     // Create some defaults, extending them with any options that were provided
     var settings = $.extend( {
-      feedURL      : '//spreadsheets.google.com/feeds/list/16EvF7h015u3vg0O9PyUWFIk30aYr7GIrFISUS7O75mk/1/public/values?alt=json-in-script',
+      feedURL      :  '/Globals/feeds/GSSheets',
       cols         : {title: 'headline', link: 'link', text: 'description', date: 'date'},
       numItems     : 4,
       title        : 'News',
@@ -133,21 +133,37 @@
       var formatedMonth = month[monthToFormat];
       return formatedMonth;
     }
-    return this.each(function() {
+    return this.each(function(i) {
       $this.append('<i class="fa fa-spinner fa-spin fa-4x"></i>');
 
       var dataURL = settings.feedURL;
-      $.ajax({
-        url: dataURL,
-        dataType: 'jsonp',
-        timeout: 5000,
-      })
-      .success(function(data) {
-        parseData(data);
-      })
-      .error(function(){
-        parseError();
-      });
+      var feedDatatype;
+
+      if (dataURL.indexOf('google') >= 0) {
+        feedDatatype = 'jsonp';
+      } else {
+        feedDatatype = 'json';
+      }
+      //TODO: add a timeout for localstorage: http://apassant.net/2012/01/16/timeout-for-html5-localstorage/
+      //Check for session storage otherwise make a pull
+      if(sessionStorage && sessionStorage.getItem('gsheetfeedcache'+dataURL)){
+        parseData(JSON.parse(sessionStorage.getItem('gsheetfeedcache'+dataURL)));
+      } else {
+        $.ajax({
+          url: dataURL,
+          dataType: feedDatatype,
+          timeout: 5000,
+        })
+        .success(function(data) {
+          if(sessionStorage){
+            sessionStorage.setItem('gsheetfeedcache'+dataURL, JSON.stringify(data));
+          }
+          parseData(data);
+        })
+        .error(function(){
+          parseError();
+        });
+      }
     });
   };
 })( jQuery );
